@@ -52,7 +52,8 @@ equivalente) com as fases e marque cada uma ao concluir.
   3 linhas, peça confirmação e pule direto para a fase 2.
 - **Só "continue" ou sem objetivo:** o objetivo é terminar o que está pendente no `plan.md`. Se não houver
   `plan.md`, pergunte o objetivo (fase 1).
-- **Tarefa trivial** (uma linha, um arquivo, sem risco): pule o plano formal, implemente, teste e reporte.
+- **Tarefa trivial** (uma linha, um arquivo, sem risco): pule o plano formal, implemente e teste. O
+  relatório segue o modelo de `references/report.md` mesmo assim (Feito, Falta, Depende de você).
 
 ## Sinais de que você está saindo do trilho
 
