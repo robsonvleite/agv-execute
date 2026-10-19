@@ -19,7 +19,7 @@ agent-browser open http://localhost:3000/rota
 agent-browser snapshot            # árvore da página com refs (@e1, @e2...) para clicar e preencher
 agent-browser errors              # erros de JavaScript da página: precisa estar vazio
 agent-browser console             # avisos e logs
-agent-browser screenshot ./verificacao/desktop.png
+agent-browser screenshot ./verificacao/desktop.png   # o caminho vem logo depois do comando
 ```
 
 Para cada critério de "pronto quando" que é visual ou interativo:
@@ -50,5 +50,8 @@ Comandos completos e padrões de uso, na versão instalada: `agent-browser skill
 Se algo não pôde ser verificado (falta acesso, serviço externo, dado real), diga isso no relatório. Não
 escreva "funciona" sobre o que não rodou.
 
-Apague as capturas e arquivos temporários de verificação que não devem ir para o repositório (ou garanta que
-estão no `.gitignore`).
+Antes de rodar um comando com opção que você não conhece, confira em `agent-browser --help`: opção errada pode
+virar nome de arquivo (ex.: uma captura salva como `--width`).
+
+No fim, apague a pasta `verificacao/` e qualquer arquivo temporário que não deve ir para o repositório, e confira
+com `git status` que só sobraram as entregas.

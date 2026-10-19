@@ -8,7 +8,7 @@ Siga o `plan.md` de cima para baixo. Para cada tarefa:
 3. **Implemente o mínimo** que faz o teste passar, no estilo do código ao redor (nomes, comentários, padrões).
 4. **Rode o teste** e veja passar. Rode também os testes vizinhos que podem ter quebrado.
 5. **Revise o próprio diff** (`git diff`): sobrou código morto, segredo, console.log, arquivo que não devia?
-6. **Marque `[x]` no plan.md.** Se a pessoa autorizou commit, commite só os arquivos desta tarefa.
+6. **Passe pela revisão dupla** (`review.md`) e só então **marque `[x]` no plan.md.** Se a pessoa autorizou commit, commite só os arquivos desta tarefa.
 
 ## Delegar a um subagente
 
@@ -30,14 +30,14 @@ Devolva: o que mudou (arquivo por arquivo), a saída do teste e qualquer dúvida
 
 ## Revisar o que voltou
 
-Nunca aceite o resultado de um subagente às cegas:
+Nunca aceite uma entrega às cegas, nem a sua. Toda tarefa passa pela **revisão dupla** de `review.md`:
 
-1. **Bate com a tarefa?** Fez tudo o que foi pedido, e nada além?
-2. **Qualidade:** o diff segue o padrão do projeto? Tem gambiarra, duplicação, segredo?
+1. **Escopo:** fez tudo o que foi pedido, e nada além? (revisor novo, lendo o código, não o relato)
+2. **Qualidade:** bug, segurança, padrão do projeto e sobra, nessa ordem. Só depois do escopo aprovado.
 3. **Rode o teste você mesmo.** A saída que o subagente relatou não é prova.
 
-Se falhar, devolva ao mesmo subagente (ou a um novo) com o problema exato. Depois de duas tentativas sem
-sucesso, pare essa tarefa, registre no plan.md e siga para as outras; ela entra no relatório.
+Se reprovar, devolva ao implementador só os itens apontados. Depois de duas rodadas sem aprovação, pare essa
+tarefa, registre no plan.md e siga para as outras; ela entra no relatório.
 
 ## Quando travar
 

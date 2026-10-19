@@ -61,7 +61,7 @@ Também funciona sem objetivo (`/agv-execute`): nesse caso ela termina o que est
 | 1. Brainstorm | Lê o projeto e pergunta, uma coisa por vez, até fechar objetivo, critério de pronto e restrições. | Responder de 2 a 5 perguntas |
 | 2. Pendências | Lê `plan.md`, regras do projeto (`CLAUDE.md`, `AGENTS.md`), histórico do git e código. Ordena o que falta. | Nada |
 | 3. Plano | Escreve o `plan.md` na raiz com tarefas, arquivos, testes e o que depende de você. | Dar um único OK |
-| 4. Execução | Implementa tarefa por tarefa, com subagentes em paralelo quando as tarefas são independentes. | Nada |
+| 4. Execução | Implementa tarefa por tarefa, com subagentes em paralelo quando as tarefas são independentes. Cada tarefa passa por duas revisões: escopo (fez o que foi pedido?) e qualidade (bug, segurança, padrão). | Nada |
 | 5. Verificação | Roda testes e build, abre as telas no navegador (computador e celular) e lê os erros da página. | Nada |
 | 6. Relatório | Devolve o que fez e um checklist do que falta e do que depende de você. | Ler e fazer os itens seus |
 
@@ -96,6 +96,7 @@ skills/agv-execute/
     plan.md                   pendências e formato do plan.md
     task-execution.md         execução por tarefa e prompt de subagente
     parallel-agents.md        quando e como rodar agentes em paralelo
+    review.md                 revisão dupla por tarefa: escopo e qualidade
     browser-testing.md        testes, build e frontend no navegador
     report.md                 o relatório final
 ```
@@ -147,8 +148,8 @@ Se a skill te ajudou, deixe uma estrela no repositório: é o que ajuda outras p
 ## Inspiração e créditos
 
 - [Superpowers](https://github.com/obra/superpowers), de Jesse Vincent (licença MIT): as ideias de brainstorm
-  com uma pergunta por vez, plano em tarefas pequenas, execução com subagentes revisados e agentes em
-  paralelo. O texto desta skill foi escrito do zero a partir dessas ideias; o aviso de licença está em
+  com uma pergunta por vez, plano em tarefas pequenas, execução com subagentes e revisão em duas etapas
+  (escopo e qualidade) e agentes em paralelo. O texto desta skill foi escrito do zero a partir dessas ideias; o aviso de licença está em
   [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 - [agent-browser](https://github.com/vercel-labs/agent-browser), da Vercel Labs (licença Apache-2.0): o
   navegador de teste. Não é distribuído aqui; a skill instala da fonte oficial com a sua permissão.

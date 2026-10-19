@@ -1,7 +1,7 @@
 ---
 name: agv-execute
-version: 1.0.0
-description: "Modo execução para o Claude Code: você dá o objetivo e a IA entrega pronto. Confere o ambiente (instala o navegador de teste agent-browser com a sua permissão), faz um brainstorm curto com uma pergunta por vez até fechar objetivo, critério de pronto e restrições, levanta as pendências na ordem certa, escreve e mantém o plan.md na raiz, implementa (em paralelo com subagentes quando as tarefas são independentes), testa tudo, inclusive o frontend no navegador, e termina com um relatório curtíssimo do que fez e do que depende de você. USE ESTA SKILL quando a pessoa digitar /agv-execute (com ou sem objetivo depois), pedir \"modo execução\", \"executa tudo\", \"entrega pronto\", \"termina o que está pendente\" ou quiser que o agente vá do objetivo até a entrega testada sem parar a cada passo. Autocontida: não exige outras skills."
+version: 1.1.1
+description: "Modo execução para o Claude Code: você dá o objetivo e a IA entrega pronto. Confere o ambiente (instala o navegador de teste agent-browser com a sua permissão), faz um brainstorm curto com uma pergunta por vez até fechar objetivo, critério de pronto e restrições, levanta as pendências na ordem certa, escreve e mantém o plan.md na raiz, implementa (em paralelo com subagentes quando as tarefas são independentes), revisa cada tarefa duas vezes (escopo e qualidade), testa tudo, inclusive o frontend no navegador, e termina com um relatório curtíssimo do que fez e do que depende de você. USE ESTA SKILL quando a pessoa digitar /agv-execute (com ou sem objetivo depois), pedir \"modo execução\", \"executa tudo\", \"entrega pronto\", \"termina o que está pendente\" ou quiser que o agente vá do objetivo até a entrega testada sem parar a cada passo. Autocontida: não exige outras skills."
 license: MIT
 ---
 
@@ -21,7 +21,7 @@ complemento dele).
 | 1. Brainstorm | Uma pergunta por vez até fechar objetivo, pronto e restrições | Sim | `references/brainstorm.md` |
 | 2. Pendências | Lê plan.md, regras do projeto, git e código; ordena o que falta | Não | `references/plan.md` |
 | 3. Plano | Escreve o `plan.md` da raiz e pede um único OK | Sim, uma vez | `references/plan.md` |
-| 4. Execução | Implementa tarefa por tarefa, em paralelo quando dá | Não | `references/task-execution.md`, `references/parallel-agents.md` |
+| 4. Execução | Implementa tarefa por tarefa, em paralelo quando dá, com revisão dupla | Não | `references/task-execution.md`, `references/parallel-agents.md`, `references/review.md` |
 | 5. Verificação | Testes, build e frontend no navegador | Não | `references/browser-testing.md` |
 | 6. Relatório | O que fez e checklist do que falta e do que depende da pessoa | Sim | `references/report.md` |
 
@@ -43,7 +43,9 @@ equivalente) com as fases e marque cada uma ao concluir.
    que o projeto já usa. Se faltar uma chave, diga o nome exato e onde gerar.
 7. **Commit só se a pessoa autorizou no brainstorm**, só dos arquivos que você mexeu, com mensagem clara.
 8. **Pronto é pronto testado.** Nunca diga que funciona sem ter rodado. Se um teste falhou, mostre a saída.
-9. **Economia:** subagente só para trabalho grande e realmente paralelo. Para ler um arquivo ou procurar um
+9. **Projeto limpo no fim:** antes do relatório, rode `git status` (ou liste a pasta) e apague todo arquivo
+   que você criou sem ser entrega (captura, log, arquivo com nome estranho). Nada de lixo na raiz.
+10. **Economia:** subagente só para trabalho grande e realmente paralelo. Para ler um arquivo ou procurar um
    símbolo, faça você mesmo. Verifique em lote, no fim de cada bloco, não a cada arquivo.
 
 ## Atalhos
@@ -52,8 +54,10 @@ equivalente) com as fases e marque cada uma ao concluir.
   3 linhas, peça confirmação e pule direto para a fase 2.
 - **Só "continue" ou sem objetivo:** o objetivo é terminar o que está pendente no `plan.md`. Se não houver
   `plan.md`, pergunte o objetivo (fase 1).
-- **Tarefa trivial** (uma linha, um arquivo, sem risco): pule o plano formal, implemente e teste. O
+- **Tarefa trivial** (um arquivo só, poucas linhas, sem risco): pule o plano formal, implemente e teste. O
   relatório segue o modelo de `references/report.md` mesmo assim (Feito, Falta, Depende de você).
+  Mexeu em dois arquivos ou mais, ou tem mais de um critério de pronto? Não é trivial: o `plan.md` é obrigatório,
+  mesmo em execução não interativa ou com o plano já aprovado de antemão.
 
 ## Sinais de que você está saindo do trilho
 
@@ -64,4 +68,5 @@ equivalente) com as fases e marque cada uma ao concluir.
 | "O build passou, então a tela está certa" | Abra no navegador e leia os erros do console. |
 | "Vou mandar 8 agentes para ir mais rápido" | Só tarefas independentes, sem arquivo em comum. Normalmente 2 a 4. |
 | "Faço o deploy, já que está pronto" | Externo e arriscado: vira item "depende de você". |
+| "O subagente disse que testou, então está aprovado" | Revisão de escopo e de qualidade, lendo o código. Depois rode o teste você mesmo. |
 | "O relatório precisa explicar tudo" | Curtíssimo: o que fez, o que falta, o que depende da pessoa. |
